@@ -2,13 +2,21 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
+import styled from '@emotion/styled';
+
 import ProblemSubCategory from './ProblemSubCategory';
+
+import Button from './Button';
 
 import {
   loadProblems,
   setSelectedSubCategories,
   setSelectedSubCategory,
 } from '../redux/actions';
+
+const CategoryContainerDiv = styled.div({
+  margin: '0 10vw 0 0',
+});
 
 export default function ProblemCategoryContainer() {
   const dispatch = useDispatch();
@@ -30,11 +38,11 @@ export default function ProblemCategoryContainer() {
   const subCategories = useSelector((state) => state.selectedSubCategories);
   return (
     <div>
-      <div>
-        <button type="button" name="지도 학습" onClick={handleClick}>지도 학습</button>
-        <button type="button" name="비지도 학습" onClick={handleClick}>비지도 학습</button>
-        <button type="button" name="강화 학습" onClick={handleClick}>강화 학습</button>
-      </div>
+      <CategoryContainerDiv>
+        <Button type="button" name="지도 학습" onClick={handleClick}>지도 학습</Button>
+        <Button type="button" name="비지도 학습" onClick={handleClick}>비지도 학습</Button>
+        <Button type="button" name="강화 학습" onClick={handleClick}>강화 학습</Button>
+      </CategoryContainerDiv>
       <ProblemSubCategory subCategories={subCategories} onClick={handleSubClick} />
     </div>
   );

@@ -2,7 +2,15 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
+import styled from '@emotion/styled';
+
 import { loadProblems, setProblemDifficulty } from '../redux/actions';
+
+import Button from './Button';
+
+const DifficultyContainerDiv = styled.div({
+  margin: '0 0 0 10vw',
+});
 
 export default function DifficultyContainer() {
   const dispatch = useDispatch();
@@ -12,9 +20,9 @@ export default function DifficultyContainer() {
     dispatch(loadProblems());
   }
   return (
-    <div>
-      <button type="button" name="연습중!" onClick={handleClick}>연습중!</button>
-      <button type="button" name="도전!!" onClick={handleClick}>도전!!</button>
-    </div>
+    <DifficultyContainerDiv>
+      <Button type="button" name="연습중!" onClick={handleClick}>연습중!</Button>
+      <Button type="button" name="도전!!" onClick={handleClick}>도전!!</Button>
+    </DifficultyContainerDiv>
   );
 }
