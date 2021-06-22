@@ -2,8 +2,10 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import Button from './Button';
+
 const SubmitContainer = styled.div({
-  margin: '1vh 0',
+  margin: '5vh 0',
 });
 
 const SubmintInfo = styled.div({
@@ -22,21 +24,11 @@ const Description = styled.div({
   width: '60%',
 });
 
-const SubmitButton = styled.button({
-  padding: '.6em 1em',
-  border: '1px solid #CCC',
-  borderRadius: '10em',
-  fontSize: '.4em',
-  color: '#595959',
-  backgroundColor: 'transparent',
-  margin: 'auto',
-});
-
 const SubmitInput = styled.div({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  margin: '3vh 0',
+  margin: '7vh 0',
 });
 
 export default function Submit({ onChange, onClick }) {
@@ -47,9 +39,9 @@ export default function Submit({ onChange, onClick }) {
         <Description>
           예측값이 담긴 테스트 데이터셋을 업로드 후, 제출하기 버튼을 눌러 제출해 주세요.
         </Description>
-        <SubmitButton type="button" onClick={onClick}>
+        <Button type="button" onClick={onClick}>
           제출하기
-        </SubmitButton>
+        </Button>
       </SubmintInfo>
 
       <SubmitInput>

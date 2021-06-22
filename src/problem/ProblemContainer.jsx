@@ -26,7 +26,7 @@ const Container = styled.div({
 });
 
 const ProblemDataContainer = styled.div({
-  margin: '5vh 10vw',
+  margin: '8vh 10vw',
   display: 'flex',
   flexDirection: 'column',
 });

@@ -5,6 +5,7 @@ import styled from '@emotion/styled';
 const ProblemInfoContainer = styled.div({
   margin: '6vh 0 5vh 0',
   padding: '2vh 2vw',
+  borderBottom: 'solid 1px #e5e5e5',
 });
 
 const Title = styled.div({

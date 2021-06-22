@@ -9,6 +9,7 @@ const RatingContainer = styled.div({
 });
 
 const NotSubmitText = styled.div({
+  margin: '5vh 0',
   fontSize: '.8em',
 });
 
