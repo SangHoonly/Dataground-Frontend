@@ -15,10 +15,8 @@ export async function fetchSubmitRating(submitFile) {
   return data;
 }
 
-export async function fetchProblems(difficulty, category) {
-  const url = `
-  http://localhost:8000/problems?difficulty=${difficulty}&category=${category}
-  `;
+export async function fetchProblems() {
+  const url = 'http://localhost:8000/problems';
   const response = await fetch(url);
   const data = response.json();
   return data;

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import styled from '@emotion/styled';
+
+import { loadProblems } from '../redux/actions';
 
 const Button = styled.button({
   height: '20vh',
@@ -23,22 +25,36 @@ const Button = styled.button({
 });
 
 export default function ProblemListContainer({ onClick }) {
+  const dispatch = useDispatch();
+
   const problems = useSelector((state) => state.problems);
+  const difficulty = useSelector((state) => state.problemDifficulty);
+  const category = useSelector((state) => state.selectedSubCategory);
+
+  const filterProblems = (problem) => (difficulty === '' && category === '') || (
+    problem.difficulty === difficulty && category === '') || (difficulty === '' && problem.category === category) || (problem.difficulty === difficulty && problem.category === category);
+
+  const selectedProblems = problems.filter((problem) => filterProblems(problem));
+
+  useEffect(() => {
+    dispatch(loadProblems());
+  }, []);
+
   return (
     <div>
       {(problems.length)
         ? (
-          problems.map((problem) => (
-            <Button
-              type="button"
-              key={problem.id}
-              name={problem.title}
-              onClick={() => onClick(problem.id)}
-
-            >
-              {problem.title}
-            </Button>
-          ))
+          selectedProblems
+            .map((problem) => (
+              <Button
+                type="button"
+                key={problem.id}
+                name={problem.title}
+                onClick={() => onClick(problem.id)}
+              >
+                {problem.title}
+              </Button>
+            ))
         )
         : null}
     </div>

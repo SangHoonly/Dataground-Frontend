@@ -36,9 +36,11 @@ describe('ProblemsPage', () => {
     useDispatch.mockImplementation(() => dispatch);
     useSelector.mockImplementation((selector) => selector({
       problemDifficulty: '',
-      selectedSubCategories: ['분류', '회귀'],
+      selectedSubCategories: ['classification', 'regression'],
       selectedSubCategory: '',
-      problems: [{ id: 1, title: '수능 성적 예측하기' }],
+      problems: [{
+        id: 1, title: '수능 성적 예측하기', difficulty: 0, category: 'regression',
+      }],
     }));
   });
 
@@ -52,6 +54,12 @@ describe('ProblemsPage', () => {
     fireEvent.click(queryByText('회귀'));
 
     expect(dispatch).toBeCalled();
+  });
+
+  it('모든 문제들이 보입니다.', () => {
+    const { queryByText } = renderProblemsPage();
+
+    expect(queryByText('수능 성적 예측하기')).not.toBeNull();
   });
 
   it('문제를 클릭하면, 문제 페이지로 이동합니다.', () => {

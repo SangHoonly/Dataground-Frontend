@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styled from '@emotion/styled';
 
-import { loadProblems, setProblemDifficulty } from '../redux/actions';
+import { setProblemDifficulty } from '../redux/actions';
 
 import Button from './Button';
 
@@ -14,15 +14,23 @@ const DifficultyContainerDiv = styled.div({
 
 export default function DifficultyContainer() {
   const dispatch = useDispatch();
+  const difficulty = useSelector((state) => state.problemDifficulty);
 
   function handleClick(event) {
-    dispatch(setProblemDifficulty(event.target.name));
-    dispatch(loadProblems());
+    if (event.target.innerText === event.target.name) {
+      dispatch(setProblemDifficulty(parseInt(event.target.value, 10)));
+      return;
+    }
+    dispatch(setProblemDifficulty(''));
   }
   return (
     <DifficultyContainerDiv>
-      <Button type="button" name="연습중!" onClick={handleClick}>연습중!</Button>
-      <Button type="button" name="도전!!" onClick={handleClick}>도전!!</Button>
+      <Button type="button" name="연습중!" value="0" onClick={handleClick}>
+        {difficulty === 0 ? '연습중! (V)' : '연습중!'}
+      </Button>
+      <Button type="button" name="도전!!" value="1" onClick={handleClick}>
+        {difficulty === 1 ? '도전!! (V)' : '도전!!'}
+      </Button>
     </DifficultyContainerDiv>
   );
 }

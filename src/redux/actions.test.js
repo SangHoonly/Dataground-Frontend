@@ -2,8 +2,6 @@ import thunk from 'redux-thunk';
 
 import configureStore from 'redux-mock-store';
 
-import context from 'jest-plugin-context';
-
 import {
   loadProblemInfo,
   loadSubmitRating,
@@ -66,75 +64,43 @@ describe('actions', () => {
   });
 
   describe('loadProblems', () => {
-    context('problemDifficulty와 selectedCategory가 있을 때', () => {
-      beforeEach(() => {
-        fetchProblems.mockImplementation(() => ({
-          problems: [{
-            id: 1,
-            title: '수능 성적 예측하기',
-          }],
-        }));
-
-        store = mockStore({
-          problemDifficulty: '연습중!',
-          selectedSubCategory: '회귀',
-        });
-      });
-
-      it('setProblems가 실행됩니다.', async () => {
-        await store.dispatch(loadProblems());
-
-        const actions = store.getActions();
-
-        expect(actions[0]).toEqual(setProblems([{
+    it('서버로부터 모든 문제들을 load해 setProblems를 실행합니다.', async () => {
+      fetchProblems.mockImplementation(() => ({
+        problems: [{
           id: 1,
           title: '수능 성적 예측하기',
+          difficulty: 0,
+          category: 'regression',
+        },
+        {
+          id: 2,
+          title: '모현 아파트값 예측하기',
+          difficulty: 1,
+          category: 'regression',
+        }],
+      }));
+
+      store = mockStore({
+        problems: [],
+      });
+
+      await store.dispatch(loadProblems());
+
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual(setProblems([
+        {
+          id: 1,
+          title: '수능 성적 예측하기',
+          difficulty: 0,
+          category: 'regression',
+        },
+        {
+          id: 2,
+          title: '모현 아파트값 예측하기',
+          difficulty: 1,
+          category: 'regression',
         }]));
-      });
-    });
-
-    context('problemDifficulty가 없을 때', () => {
-      beforeEach(() => {
-        fetchProblems.mockImplementation(() => ({
-          problems: [{
-            id: 1,
-            title: '수능 성적 예측하기',
-          }],
-        }));
-        store = mockStore({
-          selectedSubCategory: '회귀',
-        });
-      });
-
-      it('setProblems가 실행되지 않습니다.', async () => {
-        await store.dispatch(loadProblems());
-
-        const actions = store.getActions();
-
-        expect(actions).toHaveLength(0);
-      });
-    });
-
-    context('selectedCategory가 없을 때', () => {
-      beforeEach(() => {
-        fetchProblems.mockImplementation(() => ({
-          problems: [{
-            id: 1,
-            title: '수능 성적 예측하기',
-          }],
-        }));
-        store = mockStore({
-          problemDifficulty: '연습중!',
-        });
-      });
-
-      it('setProblems가 실행되지 않습니다.', async () => {
-        await store.dispatch(loadProblems());
-
-        const actions = store.getActions();
-
-        expect(actions).toHaveLength(0);
-      });
     });
   });
 });

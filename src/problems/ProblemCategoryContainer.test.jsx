@@ -17,7 +17,7 @@ describe('ProblemCategoryContainer', () => {
     dispatch.mockClear();
     useDispatch.mockImplementation(() => dispatch);
     useSelector.mockImplementation((selector) => selector({
-      selectedSubCategories: ['분류'],
+      selectedSubCategories: ['classification'],
     }));
   });
 
@@ -38,7 +38,7 @@ describe('ProblemCategoryContainer', () => {
       expect(dispatch).toBeCalledWith({
         type: 'setSelectedSubCategories',
         payload: {
-          selectedSubCategories: ['분류', '회귀'],
+          selectedSubCategories: ['classification', 'regression'],
         },
       });
 
@@ -47,7 +47,7 @@ describe('ProblemCategoryContainer', () => {
       expect(dispatch).toBeCalledWith({
         type: 'setSelectedSubCategories',
         payload: {
-          selectedSubCategories: ['군집', '차원 축소', '연관 규칙 학습'],
+          selectedSubCategories: ['clustering', 'dimensionReduction', 'associationRule'],
         },
       });
     });
@@ -59,12 +59,7 @@ describe('ProblemCategoryContainer', () => {
 
       fireEvent.click(queryByText('분류'));
 
-      expect(dispatch).toBeCalledWith({
-        type: 'setSelectedSubCategory',
-        payload: {
-          selectedSubCategory: '분류',
-        },
-      });
+      expect(dispatch).toBeCalled();
     });
   });
 });

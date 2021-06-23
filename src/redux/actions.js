@@ -78,14 +78,8 @@ export function loadSubmitRating(submitFile) {
 }
 
 export function loadProblems() {
-  return async (dispatch, getState) => {
-    const { problemDifficulty, selectedSubCategory } = getState();
-    if (!problemDifficulty || !selectedSubCategory) { return; }
-
-    const { problems } = await fetchProblems(
-      problemDifficulty,
-      selectedSubCategory,
-    );
+  return async (dispatch) => {
+    const { problems } = await fetchProblems();
     dispatch(setProblems(problems));
   };
 }

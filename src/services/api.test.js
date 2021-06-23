@@ -54,18 +54,22 @@ describe('api', () => {
       problems: [{
         id: 1,
         title: '수능 성적 예측하기',
+        difficulty: 0,
+        category: 'regression',
       },
       {
         id: 2,
         title: '모현 아파트값 예측하기',
+        difficulty: 1,
+        category: 'regression',
       }],
     };
     beforeEach(() => {
       mockFetch(problems);
     });
 
-    it('문제의 난이도와 유형에 맞는 문제들을 fetch합니다.', async () => {
-      const fetchedProblems = await fetchProblems('easy', 'regression');
+    it('모든 문제들을 fetch합니다.', async () => {
+      const fetchedProblems = await fetchProblems();
 
       expect(fetchedProblems).toEqual(problems);
     });
